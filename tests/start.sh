@@ -1,20 +1,19 @@
 #!/bin/bash
 
-. "$(dirname ${BASH_SOURCE})/../utilities/fail.sh"
+main() {
+  if [[ "1" != "$#" ]]
+  then
+    echo "$?"
+    echo "Expected a single argument" && exit 255
+  fi
 
-ls -la /Applications/
+  local -r test_directory_path="$1"
+  if [[ ! -d "${test_directory_path}" ]]
+  then
+    echo "${test_directory_path} is not a directory" && exit 255
+  fi
 
-function verify_application_existence() {
-  if [[ $# -ne 1 ]]; then fail "Expected one argument, the name of the application"; fi
-
-  local application_name="$1"
-
-  if [[ ! -d "/Applications/${application_name}" ]]; then fail "${application_name} does not exist"; fi
-  if [[ ! -x "/Applications/${application_name}" ]]; then fail "${application_name} is not executable"; fi
-
+  find "${test_directory_path}" -type f -name "test_*.sh" -exec bash -c {} ';'
 }
 
-for application_name in "Spotify.app" "Rectangle.app" "Intellij IDEA CE.app" "Pycharm CE.app" "Firefox.app" "Meld.app"
-do
-  verify_application_existence "${application_name}"
-done
+main "$1"
