@@ -1,17 +1,10 @@
 #!/bin/bash
 
 . "$(dirname "${BASH_SOURCE}")/utilities/fail.sh"
-. "$(dirname "${BASH_SOURCE}")/utilities/filesystem/directories/identify_nonhidden_direct_subdirectories_in_alphabetically_ascending_order.sh"
 . "$(dirname "${BASH_SOURCE}")/utilities/calculate_directory_md5_hash.sh"
 
-DEPENDENCIES_DIRECTORY_NAME="dependencies"
-CACHE_DIRECTORY_NAME=".cache"
-
 function install_dependency() {
-  if [[ "2" != "$#" ]]
-  then
-    fail "Expected a single argument"
-  fi
+  [[ "2" == "$#" ]] || fail "Expected a single argument"
 
   local -r dependency_path="$1"
   local -r cache_path="$2"
@@ -31,7 +24,7 @@ function install_dependency() {
     local -r source=$(cat "${dependency_path}/source")
     local -r installation_script="${dependency_path}/install.sh"
 
-    if [[ -x "${installation_script}" ]];
+    if [[ -x "${installation_script}" ]]
     then
       . "${installation_script}" "${source}" "${target}" || fail "Unable to install ${dependency_name}"
     else
@@ -40,24 +33,4 @@ function install_dependency() {
 
     touch "${cache_installation_record}" || fail "Unable to create file ${cache_installation_record}"
   fi
-}
-
-function install_dependencies() {
-  if [[ "1" != "$#" ]]
-  then
-    fail "Expected a single argument"
-  fi
-
-  local installation_directory="$1"
-
-  local dependencies_directory="${installation_directory}/${DEPENDENCIES_DIRECTORY_NAME}"
-  local cache_directory="${installation_directory}/${CACHE_DIRECTORY_NAME}"
-
-  mkdir -p "${dependencies_directory}" || fail "Unable to create dependencies directory"
-  mkdir -p "${cache_directory}" || fail "Unable to create cache directory"
-
-  while IFS='' read -r -d '' dependency_path
-  do
-    install_dependency "${dependency_path}" "${cache_directory}" || fail "Unable to install dependency: ${dependency_path}"
-  done < <(identify_nonhidden_direct_subdirectories_in_alphabetically_ascending_order "${dependencies_directory}")
 }

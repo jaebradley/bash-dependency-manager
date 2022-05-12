@@ -1,4 +1,0 @@
-#!/bin/bash
-
-source $HOME/.bash/git-prompt.sh
-source $HOME/.bash/completions.sh
