@@ -1,11 +1,5 @@
 name: CI
-on: 
-  push:
-    branches:
-      - main
-  pull_request:
-    branches-ignore:
-      - main
+on: [push, pull_request]
 jobs:
   unit-tests:
     runs-on: macos-latest
