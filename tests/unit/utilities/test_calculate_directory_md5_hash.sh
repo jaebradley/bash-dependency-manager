@@ -20,19 +20,19 @@ assert() {
 
   if [[ "${expected_result_code}" != "${result_code}" ]]
   then
-    fail "Expected ${expected_result_code} but got ${result_code} instead on line ${LINENO}"
+    fail "Expected '${expected_result_code}' but got '${result_code}' instead on line ${LINENO} for test with args $@ and standard output '${standard_output}'"
   fi
 
   if [[ "${expected_standard_output}" != "${standard_output}" ]]
   then
-    fail "Expected ${expected_standard_output} but got ${standard_output} instead on line ${LINENO}"
+    fail "Expected '${expected_standard_output}' but got '${standard_output}' instead on line ${LINENO} for test with args $@"
   fi
 }
 
 main() {
-  assert 255 "Expected a single argument"
-  assert 255 "Expected a single argument" "foo" "bar"
-  assert 255 "foo does not exist" "foo"
+  assert 255 "Unable to validate directory"
+  assert 255 "Unable to validate directory" "foo" "bar"
+  assert 255 "Unable to validate directory" "foo"
 
   local temp_directory
   temp_directory=$(create_temporary_directory)

@@ -10,7 +10,7 @@ main() {
   local -r test_directory_path="$1"
   if [[ ! -d "${test_directory_path}" ]]
   then
-    echo "${test_directory_path} is not a directory" && exit 255
+    echo "${test_directory_path} is not a test directory" && exit 255
   fi
 
   find "${test_directory_path}" -type f -name "test_*.sh" -exec bash -c {} ';'
