@@ -15,12 +15,9 @@ main() {
     echo "${test_directory_path} is not a test directory" && exit 255
   fi
 
-  ls -la ./tests//unit/utilities/filesystem/directories/
-
   find "${test_directory_path}" -type f -name "test_*.sh" -print0 | \
     while IFS= read -r -d '' file
     do 
-      ls -la "$file"
       execute_test_file "$file"
     done
 }
