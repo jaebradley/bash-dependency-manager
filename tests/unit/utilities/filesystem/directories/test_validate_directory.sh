@@ -24,6 +24,4 @@ main() {
   assert 0 "${temp_subdirectory}" validate_directory "${temp_subdirectory}"
 }
 
-echo "Starting tests in ${BASH_SOURCE}"
 main
-echo "Finishing tests in ${BASH_SOURCE}"
