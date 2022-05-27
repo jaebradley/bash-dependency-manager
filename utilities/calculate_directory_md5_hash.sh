@@ -22,7 +22,7 @@ function calculate_directory_md5_hash() {
   if [[ "0" != "$?" ]]; then echo "Unable to switch directories" && return 255; fi
 
   local file_contents_hash
-  file_contents_hash=$(calculate_directory_file_contents_md5_hash ".")
+  file_contents_hash=$(calculate_file_contents_md5_hash ".")
   if [[ "0" != "$?" ]]; then echo "Unable to calculate file contents hash" && return 255; fi
 
   local filenames_hash
