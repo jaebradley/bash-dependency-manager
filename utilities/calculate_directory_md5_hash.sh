@@ -1,13 +1,14 @@
 #!/bin/bash
 
 . "$(dirname "${BASH_SOURCE}")/filesystem/directories/validate_directory.sh"
-. "$(dirname "${BASH_SOURCE}")/filesystem/directories/calculate_directory_files.sh"
 . "$(dirname "${BASH_SOURCE}")/filesystem/directories/calculate_file_contents_md5_hash.sh"
 . "$(dirname "${BASH_SOURCE}")/filesystem/directories/calculate_directory_name_md5_hash.sh"
 . "$(dirname "${BASH_SOURCE}")/filesystem/directories/calculate_file_names_md5_hash.sh"
 
 # Only calculates the md5 hash of directories that consist of only 1 level of regular files
 function calculate_directory_md5_hash() {
+  if [[ "1" != "$#" ]]; then echo "Expected a single argument representing the path to a directory" && return 255; fi
+
   local directory_path
 
   directory_path=$(validate_directory "$1")

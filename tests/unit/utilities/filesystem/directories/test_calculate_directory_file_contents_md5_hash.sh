@@ -4,7 +4,7 @@
 . "$(dirname "${BASH_SOURCE}")/../../../../../utilities/filesystem/directories/calculate_directory_file_contents_md5_hash.sh"
 . "$(dirname "${BASH_SOURCE}")/../../../../../utilities/filesystem/directories/calculate_directory_files.sh"
 . "$(dirname "${BASH_SOURCE}")/../../../../../utilities/filesystem/directories/create_temporary_directory.sh"
-. "$(dirname "${BASH_SOURCE}")/../../../../utililties/assert.sh"
+. "$(dirname "${BASH_SOURCE}")/../../../../utilities/assert.sh"
 
 main() {
   local temp_directory

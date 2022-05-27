@@ -3,7 +3,7 @@
 . "$(dirname "${BASH_SOURCE}")/../../../../../utilities/fail.sh"
 . "$(dirname "${BASH_SOURCE}")/../../../../../utilities/filesystem/directories/validate_directory.sh"
 . "$(dirname "${BASH_SOURCE}")/../../../../../utilities/filesystem/directories/create_temporary_directory.sh"
-. "$(dirname "${BASH_SOURCE}")/../../../../utililties/assert.sh"
+. "$(dirname "${BASH_SOURCE}")/../../../../utilities/assert.sh"
 
 main() {
   assert 255 "Expected a single argument" validate_directory

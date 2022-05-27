@@ -1,6 +1,5 @@
 #!/bin/bash
 
-. "$(dirname "${BASH_SOURCE}")/calculate_directory_files.sh"
 . "$(dirname "${BASH_SOURCE}")/validate_directory.sh"
 
 function calculate_directory_file_contents_md5_hash() {
