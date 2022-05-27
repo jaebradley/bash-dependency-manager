@@ -18,6 +18,7 @@ main() {
   find "${test_directory_path}" -type f -name "test_*.sh" -print0 | \
     while IFS= read -r -d '' file
     do 
+      ls -la "$file"
       execute_test_file "$file"
     done
 }
