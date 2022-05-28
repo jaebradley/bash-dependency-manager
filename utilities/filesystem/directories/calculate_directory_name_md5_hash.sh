@@ -3,5 +3,9 @@
 . "$(dirname "${BASH_SOURCE}")/validate_directory.sh"
 
 function calculate_directory_name_md5_hash() {
-  (set -o pipefail && validate_directory "$@" | xargs basename | md5 -q)
+  local directory_path
+  directory_path=$(validate_directory "$@")
+  if [[ "0" != "$?" ]]; then echo "Invalid directory path" && return 255; fi
+
+  (set -o pipefail && echo -n "${directory_path}" | xargs basename | md5 -q)
 }
