@@ -10,7 +10,12 @@ execute_test_file() {
     if [[ ! -f "${file_path}" ]]; then fail "File ${file_path} is not a regular file"; fi
     if [[ ! -x "${file_path}" ]]; then fail "File ${file_path} is not executable"; fi
 
-    echo "Starting to execute: ${file_path}"
-    time . "${file_path}"
-    echo "Finished with exit code: $?"
+    local file_name
+    file_name=$(basename "${file_path}")
+    if [[ "0" != "$?" ]]; then fail "Unable to calculate file name for ${file_path}"; fi
+
+    echo "----- Starting ${file_name} -----"
+    echo "File is at path: ${file_path}"
+    time "${file_path}"
+    echo "----- Finished ${file_name} with exit code: $? -----"
 }

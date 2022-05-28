@@ -10,7 +10,6 @@ function calculate_directory_md5_hash() {
   if [[ "1" != "$#" ]]; then echo "Expected a single argument representing the path to a directory" && return 255; fi
 
   local directory_path
-
   directory_path=$(validate_directory "$1")
   if [[ "0" != "$?" ]]; then echo "Unable to validate directory" && return 255; fi
 

@@ -16,15 +16,13 @@ main() {
   local -r temp_subdirectory="${temp_directory}/foo"
   mkdir -p "${temp_subdirectory}" || fail "Could not create subdirectory"
 
-  local temp_file_path 
-  temp_file_path="${temp_subdirectory}/foo"
-
+  local -r temp_file_path="${temp_subdirectory}/bar"
   touch "${temp_file_path}" || fail "Could not create temp file: ${temp_file_path}"
 
-  assert 0 "71abdd93fa472ad6705abf8768e42444" calculate_directory_md5_hash "${temp_subdirectory}"
+  assert 0 "41658e86b28666a129d43dc6b5e8c456" calculate_directory_md5_hash "${temp_subdirectory}"
 
-  echo -n "foo" > "${temp_file_path}" || fail "Unable to append text to temp file ${temp_file_path}"
-  assert 0 "047fa30c5893354246cdd1597fa5e300" calculate_directory_md5_hash "${temp_subdirectory}"
+  echo -n "bar" > "${temp_file_path}" || fail "Unable to append text to temp file ${temp_file_path}"
+  assert 0 "6174429a0d606f19b6de69490c69b14f" calculate_directory_md5_hash "${temp_subdirectory}"
 
 }
 
