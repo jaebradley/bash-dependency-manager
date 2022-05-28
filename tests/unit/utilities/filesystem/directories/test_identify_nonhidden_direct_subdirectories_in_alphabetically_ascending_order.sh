@@ -32,6 +32,4 @@ main() {
   fi
 }
 
-echo "Starting tests in ${BASH_SOURCE}"
 main
-echo "Finishing tests in ${BASH_SOURCE}"
