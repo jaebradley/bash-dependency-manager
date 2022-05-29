@@ -6,8 +6,8 @@
 . "$(dirname "${BASH_SOURCE}")/../../../../utilities/assert.sh"
 
 main() {
-  assert 255 "Expected a single argument" validate_directory
-  assert 255 "Expected a single argument" validate_directory "foo" "bar"
+  assert 255 "Expected a directory path as a single argument" validate_directory
+  assert 255 "Expected a directory path as a single argument" validate_directory "foo" "bar"
   assert 255 "foo does not exist" validate_directory "foo"
 
   local temp_directory
