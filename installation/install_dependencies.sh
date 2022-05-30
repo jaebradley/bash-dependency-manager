@@ -1,26 +1,22 @@
 #!/bin/bash
 
-. "$(dirname "${BASH_SOURCE}")/utilities/fail.sh"
-. "$(dirname "${BASH_SOURCE}")/utilities/filesystem/directories/identify_nonhidden_direct_subdirectories_in_alphabetically_ascending_order.sh"
+. "$(dirname "${BASH_SOURCE}")/../utilities/fail.sh"
+. "$(dirname "${BASH_SOURCE}")/../utilities/filesystem/directories/identify_nonhidden_direct_subdirectories_in_alphabetically_ascending_order.sh"
 . "$(dirname "${BASH_SOURCE}")/install_dependency.sh"
 
-function install_dependencies() {
-  if [[ "1" != "$#" ]]
-  then
-    fail "Expected a single argument"
-  fi
+install_dependencies() {
+  if [[ "1" != "$#" ]]; then fail "Expected a single argument representing the directory path to install dependencies in"; fi
 
-  local installation_directory="$1"
+  local -r installation_directory_path="$1"
+  local -r dependencies_directory_path="${installation_directory_path}/dependencies"
+  mkdir -p "${dependencies_directory_path}" || fail "Unable to create dependencies directory"
 
-  local dependencies_directory="${installation_directory}/dependencies"
-  local cache_directory="${installation_directory}/.cache"
+  local -r cache_directory_path="${installation_directory_path}/.cache"
+  mkdir -p "${cache_directory_path}" || fail "Unable to create cache directory"
 
-  mkdir -p "${dependencies_directory}" || fail "Unable to create dependencies directory"
-  mkdir -p "${cache_directory}" || fail "Unable to create cache directory"
 
   while IFS='' read -r -d '' dependency_path
   do
-    install_dependency "${dependency_path}" "${cache_directory}" || fail "Unable to install dependency: ${dependency_path}"
-  done < <(identify_nonhidden_direct_subdirectories_in_alphabetically_ascending_order "${dependencies_directory}")
+    install_dependency "${dependency_path}" "${cache_directory_path}" || fail "Unable to install dependency: ${dependency_path}"
+  done < <(identify_nonhidden_direct_subdirectories_in_alphabetically_ascending_order "${dependencies_directory_path}")
 }
-
