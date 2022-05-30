@@ -39,7 +39,7 @@ install_dependency() {
       # TODO: order dependencies alphabetically
       while IFS='' read -r parent_dependency_path
       do
-        install_dependency "${parent_dependency_path}"
+        $(install_dependency "${parent_dependency_path}")
         if [[ "0" != "$?" ]]; then echo "Unable to install ${parent_dependency_path} dependency for dependency at ${dependency_path}" && return 255; fi
       done < "${dependencies_path}"
 
