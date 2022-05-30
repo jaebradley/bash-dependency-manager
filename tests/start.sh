@@ -3,10 +3,10 @@
 . "$(dirname "${BASH_SOURCE}")/utilities/execute_test_file.sh";
 
 main() {
-  if [[ "1" != "$#" ]]; then echo "Expected test directory path as a single argument instead of '$@'" && exit 255; fi
+  if [[ "1" != "$#" ]]; then fail "Expected test directory path as a single argument instead of '$@'"; fi
 
   local -r test_directory_path="$1"
-  if [[ ! -d "${test_directory_path}" ]]; then echo "${test_directory_path} is not a directory" && exit 255; fi
+  if [[ ! -d "${test_directory_path}" ]]; then fail "${test_directory_path} is not a directory"; fi
 
   find "${test_directory_path}" -type f -name "test_*.sh" -print0 | \
     sort --zero-terminated | \
@@ -16,4 +16,4 @@ main() {
     done
 }
 
-main "$1"
+main "$@"
