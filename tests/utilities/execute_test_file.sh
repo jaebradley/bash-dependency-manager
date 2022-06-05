@@ -17,5 +17,7 @@ execute_test_file() {
     echo "----- Starting ${file_name} -----"
     echo "File is at path: ${file_path}"
     time "${file_path}"
-    echo "----- Finished ${file_name} with exit code: $? -----"
+    local -r exit_code="$?"
+    echo "----- Finished ${file_name} with exit code: ${exit_code} -----"
+    if [[ "0" != "${exit_code}" ]]; then fail "Tests failed"; fi
 }
