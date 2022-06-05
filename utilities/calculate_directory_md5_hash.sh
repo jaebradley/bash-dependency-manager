@@ -31,5 +31,5 @@ function calculate_directory_md5_hash() {
   popd > /dev/null
   if [[ "0" != "$?" ]]; then echo "Unable to switch to original directory" && return 255; fi
 
-  md5 -q -s "${directory_hash}${filenames_hash}${file_contents_hash}"
+  md5 -q -s "${directory_name_hash}${filenames_hash}${file_contents_hash}"
 }
