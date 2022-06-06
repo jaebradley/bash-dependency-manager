@@ -1,13 +1,18 @@
 #! /bin/bash
 
 . "$(dirname "${BASH_SOURCE}")/../../utilities/fail.sh";
-. "$(dirname "${BASH_SOURCE}")/../../utilities/create_temporary_directory.sh";
+. "$(dirname "${BASH_SOURCE}")/../../utilities/filesystem/directories/create_temporary_directory.sh";
 
 install() {
-  if [[ "2" != "$#" ]]; then fail "Expected two arguments: a source and target destination"; fi
+  if [[ "3" != "$#" ]]; then fail "Expected three arguments: a source binary URL, a target destination, and the dependency path"; fi
 
   local -r source="$1"
-  local -r target="$2"
+  local -r relative_target_path="$2"
+  local -r dependency_path="$3"
+  local -r target="${dependency_path}/${relative_target_path}"
+
+  if [[ ! -d "${target}" ]]; then fail "Target ${target} is not a directory"; fi
+  if [[ ! -w "${target}" ]]; then fail "Cannot write to ${target}"; fi
 
   local temporary_directory_path
   temporary_directory_path=$(create_temporary_directory)
@@ -16,12 +21,15 @@ install() {
 
   pushd "${temporary_directory_path}" > /dev/null || fail "Unable to change directories to ${temporary_directory_path}"
 
-  tar -xvzf "${source}" || fail "Unable to extract shellcheck binary"
+  local -r source_file_name="_"
 
-  local -r shellcheck_executable_path="${temporary_directory_path}/shellcheck-stable"
-  if [[ ! -x "${shellcheck_executable_path}" ]]; then fail "Expected extracted shellcheck executable does not exist"; fi
+  curl "${source}" -L --output "${source_file_name}" -s || fail "Unable to download ${source}"
+  tar -xvzf "${source_file_name}" || fail "Unable to extract shellcheck binary"
 
-  mv "${shellcheck_executable_path}" "${target}" || fail "Unable to move shellcheck executable from ${shellcheck_executable_path} to ${target}"
+  local -r shellcheck_executable_directory_path="${temporary_directory_path}/shellcheck-v0.8.0"
+  if [[ ! -x "${shellcheck_executable_directory_path}" ]]; then fail "Expected extracted shellcheck executable directory does not exist in directory ${temporary_directory_path}"; fi
+
+  mv "${shellcheck_executable_directory_path}" "${target}" || fail "Unable to move shellcheck executable directory from ${shellcheck_executable_directory_path} to ${target}"
 
   popd "${temporary_directory_path}" > /dev/null || fail "Unable to change directories from ${temporary_directory_path}"
 }
