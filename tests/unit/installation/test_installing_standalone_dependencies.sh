@@ -6,6 +6,8 @@
 . "$(dirname "${BASH_SOURCE}")/../../utilities/assert.sh"
 
 main() {
+  assert 255 "Absolute installation directory specified: ." install_dependencies "."
+
   local temp_directory_path
   temp_directory_path=$(create_temporary_directory)
   if [[ "0" != "$?" ]]; then fail "Unable to create temporary directory"; fi

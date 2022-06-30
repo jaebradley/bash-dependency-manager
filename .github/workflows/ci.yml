@@ -6,6 +6,12 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v3
+      - name: Install dependencies
+        run: bash install.sh $(pwd)
+        shell: bash
+      - name: Execute build
+        run: bash build/build.sh
+        shell: bash
       - name: Execute Unit Tests
-        run: bash ./tests/start.sh "./tests/"
+        run: bash tests/start.sh "./tests/"
         shell: bash
