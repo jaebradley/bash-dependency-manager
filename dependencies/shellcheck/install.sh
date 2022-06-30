@@ -10,8 +10,9 @@ install() {
   local -r relative_target_path="$2"
   local -r dependency_path="$3"
   local -r target="${dependency_path}/${relative_target_path}"
+  
+  mkdir -p "${target}" || fail "Could not create target ${target}"
 
-  if [[ ! -d "${target}" ]]; then fail "Target ${target} is not a directory"; fi
   if [[ ! -w "${target}" ]]; then fail "Cannot write to ${target}"; fi
 
   local temporary_directory_path
