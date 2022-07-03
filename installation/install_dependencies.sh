@@ -8,7 +8,7 @@ install_dependencies() {
   if [[ "1" != "$#" ]]; then fail "Expected a single argument representing the directory path to install dependencies in"; fi
 
   local -r installation_directory_path="$1"
-  if [[ "${installation_directory_path}" =~ ^\. ]]; then fail "Absolute installation directory specified: ${installation_directory_path}"; fi
+  if [[ "${installation_directory_path}" =~ ^\. ]]; then fail "Absolute installation directory must be specified: ${installation_directory_path}"; fi
 
   local -r dependencies_directory_path="${installation_directory_path}/dependencies"
   mkdir -p "${dependencies_directory_path}" || fail "Unable to create dependencies directory"
