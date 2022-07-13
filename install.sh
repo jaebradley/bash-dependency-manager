@@ -11,6 +11,7 @@ install() {
   if [[ ! $? ]]; then fail "Operating system is not Darwin"; fi
 
   install_dependencies "$@"
+  if [[ ! $? ]]; then fail "Could not install dependencies"; fi
 }
 
 install "$@"
