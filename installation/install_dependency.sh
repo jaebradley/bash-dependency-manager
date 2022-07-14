@@ -43,7 +43,7 @@ install_dependency() {
         if [[ "0" != "$?" ]]; then echo "Unable to install ${parent_dependency_path} dependency for dependency at ${dependency_path}" && return 255; fi
       done < "${dependencies_path}"
 
-      $(. "${installation_script}" "${source}" "${target}" "${dependency_path}")
+      $("${installation_script}" "${source}" "${target}" "${dependency_path}")
       if [[ "0" != "$?" ]]; then echo "Unable to install ${dependency_name} at ${dependency_path}" && return 255; fi
     else
       echo "Installation script "${installation_script}" is not executable" && return 255
