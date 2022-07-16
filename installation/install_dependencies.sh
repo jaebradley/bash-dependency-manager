@@ -18,7 +18,10 @@ install_dependencies() {
 
   while IFS='' read -r -d '' dependency_path
   do
-    $(install_dependency "${dependency_path}" "${cache_directory_path}")
-    if [[ "0" != "$?" ]]; then fail "Unable to install dependency: ${dependency_path}"; fi
+    local installation_output
+    installation_output="$(install_dependency "${dependency_path}" "${cache_directory_path}")"
+    if [[ "0" != "$?" ]];
+      then fail "Unable to install dependency: ${dependency_path}";
+    fi
   done < <(identify_nonhidden_direct_subdirectories_in_alphabetically_ascending_order "${dependencies_directory_path}")
 }
