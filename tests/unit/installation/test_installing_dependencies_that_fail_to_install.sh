@@ -19,7 +19,7 @@ main() {
   touch "${first_dependency_path}/target" || fail "Unable to create target"
   touch "${first_dependency_path}/dependencies" || fail "Unable to create dependencies"
 
-  assert 255 "Unable to install dependency: ${first_dependency_path}" install_dependencies "${temp_directory_path}"
+  assert 255 "Unable to install dependency: ${first_dependency_path}. Error is 'Unable to install foo at ${first_dependency_path} with output: '" install_dependencies "${temp_directory_path}"
 }
 
 main

@@ -21,7 +21,7 @@ install_dependencies() {
     local installation_output
     installation_output="$(install_dependency "${dependency_path}" "${cache_directory_path}")"
     if [[ "0" != "$?" ]];
-      then fail "Unable to install dependency: ${dependency_path}";
+      then fail "Unable to install dependency: ${dependency_path}. Error is '${installation_output}'";
     fi
   done < <(identify_nonhidden_direct_subdirectories_in_alphabetically_ascending_order "${dependencies_directory_path}")
 }
