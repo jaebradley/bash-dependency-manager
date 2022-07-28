@@ -38,7 +38,7 @@ main() {
   assert 255 "Dependencies path at ${dependency_directory_path}/dependencies is not a regular file" install_dependency "${dependency_directory_path}" "${cache_dependencies_path}"
   touch "${dependency_directory_path}/dependencies" || fail "Unable to create dependencies file"
 
-  assert 0 "Successfully installed foo at ${dependency_directory_path} with output: " install_dependency "${dependency_directory_path}" "${cache_dependencies_path}"
+  assert 0 "" install_dependency "${dependency_directory_path}" "${cache_dependencies_path}"
   assert 0 "foo has already been installed" install_dependency "${dependency_directory_path}" "${cache_dependencies_path}"
 }
 
