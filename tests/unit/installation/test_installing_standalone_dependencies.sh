@@ -30,7 +30,10 @@ main() {
   touch "${second_dependency_path}/target" || fail "Unable to create target"
   touch "${second_dependency_path}/dependencies" || fail "Unable to create dependencies"
 
-  assert 0 "" install_dependencies "${temp_directory_path}"
+  assert 0 "Starting to install dependency: ${second_dependency_path}
+Successfully installed dependency: ${second_dependency_path}
+Starting to install dependency: ${first_dependency_path}
+Successfully installed dependency: ${first_dependency_path}" install_dependencies "${temp_directory_path}"
 }
 
 main
