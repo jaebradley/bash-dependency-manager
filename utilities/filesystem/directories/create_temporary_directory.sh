@@ -4,9 +4,10 @@
 
 function create_temporary_directory() {
   local id
-  id=$(uuidgen) || fail "Error on ${LINENO}"
+  id=$(uuidgen)
+  if [[ "0" != "$?" ]]; then fail "Unable to generate UUID on line ${LINENO}"; fi
 
-  local path="/tmp/${id}"
+  local -r path="/tmp/${id}"
   mkdir -p "${path}" || fail "Error on ${LINENO}"
-  echo -n "${path}" || fail "Error on ${LINENO}"
+  printf "${path}" || fail "Error on ${LINENO}"
 }
