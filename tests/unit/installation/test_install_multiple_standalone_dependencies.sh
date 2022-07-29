@@ -34,15 +34,16 @@ main() {
   local -r cache_dependencies_path="${temp_directory}/.cache"
   mkdir -p "${cache_dependencies_path}" || fail "Unable to create directory at ${cache_dependencies_path}"
 
-  local first_dependency_path
-  first_dependency_path=$(create_independent_dependency "${temp_dependencies_directory_path}/foo")
-  if [[ "0" != "$?" ]]; then fail "Could not create first dependency"; fi
+  local -r first_dependency_path="${temp_dependencies_directory_path}/foo"
+  create_independent_dependency "${first_dependency_path}" || fail "Could not create first dependency on line: ${LINENO}"
 
-  local second_dependency_path
-  second_dependency_path=$(create_independent_dependency "${temp_dependencies_directory_path}/foo")
-  if [[ "0" != "$?" ]]; then fail "Could not create second dependency"; fi
+  local -r second_dependency_path="${temp_dependencies_directory_path}/bar"
+  create_independent_dependency "${temp_dependencies_directory_path}/bar" || fail "Could not create second dependency on line: ${LINENO}"
 
-  assert 0 "" install_dependencies "${temp_directory}"
+  assert 0 "Starting to install dependency: ${second_dependency_path}
+Successfully installed dependency: ${second_dependency_path}
+Starting to install dependency: ${first_dependency_path}
+Successfully installed dependency: ${first_dependency_path}" install_dependencies "${temp_directory}"
 }
 
 main

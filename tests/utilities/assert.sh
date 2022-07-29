@@ -22,7 +22,7 @@ assert() {
 
   if [[ "${expected_standard_output}" != "${standard_output}" ]]
   then
-    fail "Expected standard output of '${expected_standard_output}' but got '${standard_output}' instead on line ${LINENO} for test with args ${arguments}"
+    fail "Expected standard output of '${expected_standard_output}' but got '${standard_output}' instead on line ${LINENO} for test with args '${arguments}'"
   fi
 }
 
